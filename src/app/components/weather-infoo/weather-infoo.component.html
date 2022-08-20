@@ -1,0 +1,71 @@
+<!--Input City Name Div-->
+<div *ngIf="isShowCityDiv"  class="parent-div">
+  <div class="card-div">
+    <h3 class="p-4" style="color: #ad5389">Weather App</h3>
+    <div style="border-top: 2px solid #dfdfdf ;"></div>
+    <div class="input-field p-4">
+      <button *ngIf="showDetailsBtn" class="details-btn">Getting weather details...</button>
+      <input #city type="text" placeholder="Enter city name">
+        <button (click)="getDetailsByName(city.value)" class="submit-btn">Get Details</button>
+        <div class="text-center">
+          <span>--------------------- or -------------------</span>
+        </div>
+      <br>
+      <button class="submit-btn" (click)="getDetailsByCoords()">Get Device Location</button>
+    </div>
+  </div>
+</div>
+
+<!--Weather Info Div-->
+<div *ngIf="!isShowCityDiv" class="parent-div">
+  <div class="card-div">
+    <h3 class="p-4" style="color: #ad5389">
+      <svg (click)="navigateToCity()" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg>
+      Weather App
+    </h3>
+    <div style="border-top: 2px solid #ddd ;"></div>
+    <br>
+    <div class="details-div">
+      <div class="weather-details">
+        <img src="assets/cloud.jpg" width="300">
+      </div>
+      <div class="temp-div mt-2">
+        <h1 style="text-align: center;">{{this.temperature}} <sup>°</sup> C</h1>
+        <h4 class="mt-1" style="text-align: center;">{{this.weatherDescription| titlecase}}</h4>
+      </div>
+      <div class="location-div mb-3">
+        <p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+            <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+            <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+          </svg>
+          {{this.cityName}}, {{this.countryCode}}
+        </p>
+      </div>
+    </div>
+    <div class="temperature-div">
+      <div class="temperature-details p-4 text-center" style="border-right: 2px solid #ddd; width: 50%;border-top: 2px solid #ddd">
+        <a style="color: #ad5389">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-thermometer-sun" viewBox="0 0 16 16">
+            <path d="M5 12.5a1.5 1.5 0 1 1-2-1.415V2.5a.5.5 0 0 1 1 0v8.585A1.5 1.5 0 0 1 5 12.5z"/>
+            <path d="M1 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM3.5 1A1.5 1.5 0 0 0 2 2.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0L5 10.486V2.5A1.5 1.5 0 0 0 3.5 1zm5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5zm4.243 1.757a.5.5 0 0 1 0 .707l-.707.708a.5.5 0 1 1-.708-.708l.708-.707a.5.5 0 0 1 .707 0zM8 5.5a.5.5 0 0 1 .5-.5 3 3 0 1 1 0 6 .5.5 0 0 1 0-1 2 2 0 0 0 0-4 .5.5 0 0 1-.5-.5zM12.5 8a.5.5 0 0 1 .5-.5h1a.5.5 0 1 1 0 1h-1a.5.5 0 0 1-.5-.5zm-1.172 2.828a.5.5 0 0 1 .708 0l.707.708a.5.5 0 0 1-.707.707l-.708-.707a.5.5 0 0 1 0-.708zM8.5 12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5z"/>
+          </svg>
+        </a>
+        <span>{{this.feelsLikeTemperature}} <sup>° </sup>C</span><br>
+        <span class="ms-5">Feels like</span>
+      </div>
+      <div class="fumidity-div p-4 text-center" style="width: 50%;border-top: 2px solid #dfdfdf">
+        <a style="color: #ad5389;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-thermometer-sun" viewBox="0 0 16 16">
+            <path d="M5 12.5a1.5 1.5 0 1 1-2-1.415V2.5a.5.5 0 0 1 1 0v8.585A1.5 1.5 0 0 1 5 12.5z"/>
+            <path d="M1 2.5a2.5 2.5 0 0 1 5 0v7.55a3.5 3.5 0 1 1-5 0V2.5zM3.5 1A1.5 1.5 0 0 0 2 2.5v7.987l-.167.15a2.5 2.5 0 1 0 3.333 0L5 10.486V2.5A1.5 1.5 0 0 0 3.5 1zm5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5zm4.243 1.757a.5.5 0 0 1 0 .707l-.707.708a.5.5 0 1 1-.708-.708l.708-.707a.5.5 0 0 1 .707 0zM8 5.5a.5.5 0 0 1 .5-.5 3 3 0 1 1 0 6 .5.5 0 0 1 0-1 2 2 0 0 0 0-4 .5.5 0 0 1-.5-.5zM12.5 8a.5.5 0 0 1 .5-.5h1a.5.5 0 1 1 0 1h-1a.5.5 0 0 1-.5-.5zm-1.172 2.828a.5.5 0 0 1 .708 0l.707.708a.5.5 0 0 1-.707.707l-.708-.707a.5.5 0 0 1 0-.708zM8.5 12a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-1 0v-1a.5.5 0 0 1 .5-.5z"/>
+          </svg>
+        </a>
+        <span>{{this.humidity}}%</span><br>
+        <span class="ms-5">Humidity</span>
+      </div>
+    </div>
+  </div>
+</div>
